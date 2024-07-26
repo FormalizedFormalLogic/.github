@@ -1,0 +1,64 @@
+<h1 align="center">Formalized Formal Logic</h1>
+
+<p align="center">
+Formalizing about formal logic (mathematical logic) in <a href="https://lean-lang.org">Lean Theorem Prover</a>.
+</p>
+
+## Summary
+
+Our [Book] provides summaries of formalized concepts, theorems, propositions and brief explainations. (**In progress**)
+
+[Book]: https://formalizedformallogic.github.io/Book
+
+### Main Results
+
+Main results of this project. More results and details on [Book].
+
+#### First-Order and Arithmetics
+
+- [Completeness of First-Order Logic][FO-Completeness]
+- Cut-Elimination of First-Order Sequent Calculus _(Gentzen's Hauptsatz)_
+- [Gödel's First Incompleteness Theorem][Goedel-IT1]
+
+[FO-Completeness]: https://formalizedformallogic.github.io/Book/first_order/completeness.html
+[Goedel-IT1]: https://formalizedformallogic.github.io/Book/first_order/goedel1.html
+
+#### Basic Modal Logic
+
+- [Completeness of Kripke Semantics][BML-Kripke-Completeness]
+- Filteration Methods
+- [Gödel-Mckinsey-Tarski Theorem][GMT-Theorem] and [Modal Companion][Modal-Companion]
+
+[BML-Kripke-Completeness]: https://formalizedformallogic.github.io/Book/standard_modal/kripke_completeness.html
+[GMT-Theorem]: https://formalizedformallogic.github.io/Book/standard_modal/modal_companion.html#g%C3%B6del-mckensey-tarski-theorem
+[Modal-Companion]: https://formalizedformallogic.github.io/Book/standard_modal/modal_companion.html
+
+#### Non-Classical Propositional Logic
+
+- [Completeness of Kripke Semantics][NCP-Kripke-Completeness]
+- [Rejection Law of Excluded Middle][Int-Reject-LEM]
+- [Disjunctive Property][Int-DP]
+
+[NCP-Kripke-Completeness]: https://formalizedformallogic.github.io/Book/superntuitionistic/kripke_completeness.html
+[Int-Reject-LEM]: https://formalizedformallogic.github.io/Book/superntuitionistic/reject_lem.html
+[Int-DP]: https://formalizedformallogic.github.io/Book/superntuitionistic/dp.html
+
+## Repositories
+
+### [Foundation](https://github.com/FormalizedFormalLogic)
+
+Common Results of Mathematical Logic.
+
+**keyword**: _Propositional Logic_, _First-Order Logic_, _Non-Classical Propositional Logic_, _Basic Modal Logic_
+
+### [Arithmetization](https://github.com/FormalizedFormalLogic/Arithmetization)
+
+Arithmetization of Metamathematics.
+Formalizing Gödel's 2nd Incompleteness Theorem is on going.
+
+**keyword**: _Arithmetics_, _Metamathematics_
+
+### [Book](https://github.com/FormalizedFormalLogic/Book)
+
+Summaries of results in this entire project.
+See [Book].
