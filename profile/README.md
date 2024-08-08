@@ -1,7 +1,7 @@
 <h1 align="center">Formalized Formal Logic</h1>
 
 <p align="center">
-Formalizing about formal logic (mathematical logic) in <a href="https://lean-lang.org">Lean Theorem Prover</a>.
+Formalize formal logic (mathematical logic) in <a href="https://lean-lang.org">Lean Theorem Prover</a>.
 </p>
 
 ## Summary
@@ -14,10 +14,13 @@ Our [Book] provides summaries of formalized concepts, theorems, propositions and
 
 Main results of this project. More results and details on [Book].
 
-#### First-Order and Arithmetics
+#### Classical Propositional Logic
+- [Soundness](https://formalizedformallogic.github.io/Foundation/docs/Logic/Propositional/Classical/Basic/Completeness.html#LO.Propositional.Classical.soundness) and [Completeness](https://formalizedformallogic.github.io/Foundation/docs/Logic/Propositional/Classical/Basic/Completeness.html#LO.Propositional.Classical.completeness)
 
-- [Completeness of First-Order Logic][FO-Completeness]
-- Cut-Elimination of First-Order Sequent Calculus _(Gentzen's Hauptsatz)_
+#### Classical First-Order Logic and Arithmetics
+
+- [Completeness][FO-Completeness]
+- [Cut-Elimination of First-Order Sequent Calculus _(Gentzen's Hauptsatz)_](https://formalizedformallogic.github.io/Foundation/docs/Logic/FirstOrder/Hauptsatz.html#LO.FirstOrder.Derivation.hauptsatz)
 - [Gödel's First Incompleteness Theorem][Goedel-IT1]
 
 [FO-Completeness]: https://formalizedformallogic.github.io/Book/first_order/completeness.html
@@ -45,18 +48,17 @@ Main results of this project. More results and details on [Book].
 
 ## Repositories
 
-### [Foundation](https://github.com/FormalizedFormalLogic)
+### [Foundation](https://github.com/FormalizedFormalLogic/Foundation)
 
 Common Results of Mathematical Logic.
 
-**keyword**: _Propositional Logic_, _First-Order Logic_, _Non-Classical Propositional Logic_, _Basic Modal Logic_
+**keyword**: _Propositional Logic_, _Classical First-Order Logic_, _Non-Classical Propositional Logic_, _Basic Modal Logic_
 
 ### [Arithmetization](https://github.com/FormalizedFormalLogic/Arithmetization)
 
-Arithmetization of Metamathematics.
-Formalizing Gödel's 2nd Incompleteness Theorem is on going.
+Arithmetization of Mathematics/Metamathematics.
 
-**keyword**: _Arithmetics_, _Metamathematics_
+**keyword**: _$\mathsf I \Sigma_0$_, _$\mathsf I \Sigma_1$_, _Peano Arithmetics_
 
 ### [Book](https://github.com/FormalizedFormalLogic/Book)
 
