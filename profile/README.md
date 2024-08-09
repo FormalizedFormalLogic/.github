@@ -70,6 +70,6 @@ See [Book].
 
 This project is supported by [Proxima Technology].
 
-[![Proxima Technology](./proxima_technology.svg)][Proxima Technology]
+[<img height="60" src="./proxima_technology.svg">][Proxima Technology]
 
 [Proxima Technology]: https://proxima-ai-tech.com/
