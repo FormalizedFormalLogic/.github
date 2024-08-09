@@ -15,6 +15,7 @@ Our [Book] provides summaries of formalized concepts, theorems, propositions and
 Main results of this project. More results and details on [Book].
 
 #### Classical Propositional Logic
+
 - [Soundness](https://formalizedformallogic.github.io/Foundation/docs/Logic/Propositional/Classical/Basic/Completeness.html#LO.Propositional.Classical.soundness) and [Completeness](https://formalizedformallogic.github.io/Foundation/docs/Logic/Propositional/Classical/Basic/Completeness.html#LO.Propositional.Classical.completeness)
 
 #### Classical First-Order Logic and Arithmetics
@@ -58,9 +59,17 @@ Common Results of Mathematical Logic.
 
 Arithmetization of Mathematics/Metamathematics.
 
-**keyword**: _$\mathsf I \Sigma_0$_, _$\mathsf I \Sigma_1$_, _Peano Arithmetics_
+**keyword**: $\mathsf I \Sigma_0$, $\mathsf I \Sigma_1$, _Peano Arithmetics_
 
 ### [Book](https://github.com/FormalizedFormalLogic/Book)
 
 Summaries of results in this entire project.
 See [Book].
+
+## Sponsor
+
+This project is supported by [Proxima Technology].
+
+[![Proxima Technology](./proxima_technology.svg)][Proxima Technology]
+
+[Proxima Technology]: https://proxima-ai-tech.com/
