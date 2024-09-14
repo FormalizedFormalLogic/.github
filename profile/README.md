@@ -21,11 +21,14 @@ Main results of this project. More results and details on [Book].
 #### Classical First-Order Logic and Arithmetics
 
 - [Completeness][FO-Completeness]
-- [Cut-Elimination of First-Order Sequent Calculus _(Gentzen's Hauptsatz)_](https://formalizedformallogic.github.io/Foundation/docs/Logic/FirstOrder/Hauptsatz.html#LO.FirstOrder.Derivation.hauptsatz)
+- [Cut-Elimination of First-Order Sequent Calculus _(Gentzen's Hauptsatz)_](https://github.com/FormalizedFormalLogic/Foundation/blob/b343bbf25929a9c6877cd72437269fe859556dc6/Logic/FirstOrder/Hauptsatz.lean#L422)
+  - _Note that this is an old result, not the latest._
 - [Gödel's First Incompleteness Theorem][Goedel-IT1]
+- [Gödel's Second Incompleteness Theorem][Goedel-IT2]
 
 [FO-Completeness]: https://formalizedformallogic.github.io/Book/first_order/completeness.html
 [Goedel-IT1]: https://formalizedformallogic.github.io/Book/first_order/goedel1.html
+[Goedel-IT2]: https://formalizedformallogic.github.io/Book/first_order/goedel2.html
 
 #### Basic Modal Logic
 
@@ -60,6 +63,12 @@ Common Results of Mathematical Logic.
 Arithmetization of Mathematics/Metamathematics.
 
 **keyword**: $\mathsf I \Sigma_0$, $\mathsf I \Sigma_1$, _Peano Arithmetics_
+
+### [Incompleteness](https://github.com/FormalizedFormalLogic/Incompleteness)
+
+Incompleness Theorem Related Results
+
+**keyword**: _Gödel's Incompleteness Theorem_, _Provability Logic_
 
 ### [Book](https://github.com/FormalizedFormalLogic/Book)
 
