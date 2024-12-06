@@ -30,6 +30,11 @@ Main results of this project. More results and details on [Book].
 [Goedel-IT1]: https://formalizedformallogic.github.io/Book/first_order/goedel1.html
 [Goedel-IT2]: https://formalizedformallogic.github.io/Book/first_order/goedel2.html
 
+#### Intuitionistic First-Order Logic
+- [Gödel-Gentzen translation][Goedel-Gentzen-translation]
+
+[Goedel-Gentzen-translation]: https://formalizedformallogic.github.io/Book/intuitionistic_first_order/goedel-gentzen-translation.html
+
 #### Basic Modal Logic
 
 - [Completeness of Kripke Semantics][BML-Kripke-Completeness]
