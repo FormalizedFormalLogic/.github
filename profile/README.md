@@ -21,8 +21,7 @@ Main results of this project. More results and details on [Book].
 #### Classical First-Order Logic and Arithmetics
 
 - [Completeness][FO-Completeness]
-- [Cut-Elimination of First-Order Sequent Calculus _(Gentzen's Hauptsatz)_](https://github.com/FormalizedFormalLogic/Foundation/blob/b343bbf25929a9c6877cd72437269fe859556dc6/Logic/FirstOrder/Hauptsatz.lean#L422)
-  - _Note that this is an old result, not the latest._
+- [Cut-Elimination of First-Order Sequent Calculus _(Gentzen's Hauptsatz)_](https://github.com/FormalizedFormalLogic/Foundation/blob/94d18217bf9b11d3a0b1944424b1e028e50710a3/Foundation/FirstOrder/Hauptsatz.lean#L358-L365)
 - [Gödel's First Incompleteness Theorem][Goedel-IT1]
 - [Gödel's Second Incompleteness Theorem][Goedel-IT2]
 
@@ -40,6 +39,7 @@ Main results of this project. More results and details on [Book].
 - [Completeness of Kripke Semantics][BML-Kripke-Completeness]
 - Filteration Methods
 - [Gödel-Mckinsey-Tarski Theorem][GMT-Theorem] and [Modal Companion][Modal-Companion]
+- [Sublogic Relations](https://github.com/FormalizedFormalLogic/LogicsKite?tab=readme-ov-file#modal-logics)
 
 [BML-Kripke-Completeness]: https://formalizedformallogic.github.io/Book/standard_modal/kripke_completeness.html
 [GMT-Theorem]: https://formalizedformallogic.github.io/Book/standard_modal/modal_companion.html#g%C3%B6del-mckensey-tarski-theorem
@@ -79,6 +79,10 @@ Incompleness Theorem Related Results
 
 Summaries of results in this entire project.
 See [Book].
+
+### [LogicsKite](https://github.com/FormalizedFormalLogic/LogicsKite)
+
+Visualization of sublogic/subtheory relations of modal logics and first-order theories.
 
 ## Sponsor
 
