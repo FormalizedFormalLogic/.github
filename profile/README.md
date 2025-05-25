@@ -24,10 +24,12 @@ See [Book](https://formalizedformallogic.github.io/Foundation/book) (**In progre
   - Modal Companion
   - Provability Logic
 
-## Sponsor
+## Financial Supports
 
-This project is supported by [Proxima Technology].
+Any financial supports would greatly helps us. If you considered, please contact us: [palalansouki@gmail.com](mailto:palalansouki@gmail.com)
 
-[<img height="60" src="./proxima_technology.svg">][Proxima Technology]
+## Previous Sponsors
 
-[Proxima Technology]: https://proxima-ai-tech.com/
+Companies and organizations that have supported us in the past.
+
+- [Proxima Technology](https://proxima-ai-tech.com) (2024-2025)
