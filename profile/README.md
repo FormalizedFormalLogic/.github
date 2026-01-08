@@ -9,7 +9,7 @@ Formalize formal logic (mathematical logic) in <a href="https://lean-lang.org">L
 ## [Foundation]
 
 Our main repository is [Foundation].
-See [Book](https://formalizedformallogic.github.io/Foundation/book) (**In progress**) and [Doc](https://FormalizedFormalLogic.github.io/Foundation/doc) for more results and details.
+See [Catalogue](https://formalizedformallogic.github.io/Catalogue) (**In progress**) and [Doc](https://FormalizedFormalLogic.github.io/Foundation/doc) for more results and details.
 
 - Propositional Logic
   - Completeness for Classical Logic
