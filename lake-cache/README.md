@@ -60,6 +60,21 @@ revision, and a merge commit is never one.
 `repo`, `config`, `max-revs` and `assert-fresh`. Leave `assert-fresh` empty unless the library
 imports all of Mathlib; otherwise it fails on modules the library never uses.
 
+**A dependency's outputs** — what a repository built on Foundation wants, so that a pin bump costs
+a download rather than an hour of elaboration — need `package` as well as `repo`: `repo` alone
+looks the root package up under someone else's name. The revision read is the one the manifest
+pins, not this repository's HEAD, so `fetch-depth` does not apply to it. Restore each package with
+its own step; the second one does not undo the first.
+
+```yaml
+- uses: FormalizedFormalLogic/.github/lake-cache/restore@main
+  with:
+    enabled: ${{ vars.LAKE_CACHE_ENABLED }}
+    repo: FormalizedFormalLogic/Foundation
+    package: Foundation
+    assert-fresh: ''
+```
+
 **4. The variable and the secret.**
 
 | Name | Kind | Value |
@@ -76,6 +91,8 @@ buckets in that Cloudflare account. Issue one per repository so revocation is in
 ```shell
 lake exe cache get
 LAKE_CONFIG=lake-cache.toml lake cache get --service ffl --repo <owner>/<repo> --max-revs=100
+LAKE_CONFIG=lake-cache.toml lake cache get --service ffl --repo FormalizedFormalLogic/Foundation \
+  --package Foundation --max-revs=100
 ```
 
 A miss is not an error; the build compiles from source.

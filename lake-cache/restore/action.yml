@@ -8,6 +8,11 @@ inputs:
   repo:
     description: Upstream `owner/repo` whose outputs to read.
     default: ${{ github.repository }}
+  package:
+    description: >-
+      Dependency in the workspace whose outputs to read, at the revision this repository pins it
+      to. Empty reads the root package's, at HEAD.
+    default: ''
   skip-download:
     description: Skip the download because another cache already restored the build.
     default: 'false'
@@ -53,10 +58,13 @@ runs:
       env:
         LAKE_CONFIG: ${{ github.workspace }}/${{ inputs.config }}
         REPO: ${{ inputs.repo }}
+        PACKAGE: ${{ inputs.package }}
         MAX_REVS: ${{ inputs.max-revs }}
       run: |
+        args=(--service ffl --repo "$REPO" --max-revs="$MAX_REVS")
+        [ -z "$PACKAGE" ] || args+=(--package "$PACKAGE")
         for attempt in 1 2 3; do
-          if lake cache get --service ffl --repo "$REPO" --max-revs="$MAX_REVS"; then exit 0; fi
+          if lake cache get "${args[@]}"; then exit 0; fi
           echo "::warning::lake cache get attempt $attempt did not complete"
         done
         echo "::warning::cache incomplete; the build will compile the rest from source"
