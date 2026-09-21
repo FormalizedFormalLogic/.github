@@ -60,12 +60,27 @@ revision, and a merge commit is never one.
 `repo`, `config`, `max-revs` and `assert-fresh`. Leave `assert-fresh` empty unless the library
 imports all of Mathlib; otherwise it fails on modules the library never uses.
 
-**4. The variable and the secret.**
+**A dependency's outputs** — what a repository built on Foundation wants, so that a pin bump costs
+a download rather than an hour of elaboration — need `package` as well as `repo`: `repo` alone
+looks the root package up under someone else's name. The revision read is the one the manifest
+pins, not this repository's HEAD, so `fetch-depth` does not apply to it. Restore each package with
+its own step; the second one does not undo the first.
+
+```yaml
+- uses: FormalizedFormalLogic/.github/lake-cache/restore@main
+  with:
+    enabled: ${{ vars.LAKE_CACHE_ENABLED }}
+    repo: FormalizedFormalLogic/Foundation
+    package: Foundation
+    assert-fresh: ''
+```
+
+**4. The secret,** and the variable only if you want an off switch.
 
 | Name | Kind | Value |
 |---|---|---|
-| `LAKE_CACHE_ENABLED` | variable | `1` enables the cache; anything else makes every step a no-op |
-| `LAKE_CACHE_KEY` | secret | `<ACCESS_KEY_ID>:<SECRET_ACCESS_KEY>` of an R2 API token |
+| `LAKE_CACHE_KEY` | secret | `<ACCESS_KEY_ID>:<SECRET_ACCESS_KEY>` of an R2 API token. Publishing is skipped without it; reads are anonymous and need nothing |
+| `LAKE_CACHE_ENABLED` | variable | `0` makes every cache step a no-op. Unset — the normal case — leaves the cache on |
 
 The token must be an **Account API token** with **Object Read & Write** scoped to
 `ffl-lake-cache` alone — the `Admin` tiers cannot be bucket-scoped and would reach unrelated
@@ -76,6 +91,8 @@ buckets in that Cloudflare account. Issue one per repository so revocation is in
 ```shell
 lake exe cache get
 LAKE_CONFIG=lake-cache.toml lake cache get --service ffl --repo <owner>/<repo> --max-revs=100
+LAKE_CONFIG=lake-cache.toml lake cache get --service ffl --repo FormalizedFormalLogic/Foundation \
+  --package Foundation --max-revs=100
 ```
 
 A miss is not an error; the build compiles from source.
