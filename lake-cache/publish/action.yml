@@ -1,0 +1,35 @@
+name: Publish Lake cache
+description: Upload this repository's Lean build outputs to the shared FFL R2 cache.
+
+inputs:
+  cache-key:
+    description: Pass `secrets.LAKE_CACHE_KEY`. Empty skips the upload.
+    required: true
+  targets:
+    description: Lake targets whose outputs to publish.
+    required: true
+  repo:
+    description: Repository to publish under.
+    default: ${{ github.repository }}
+  config:
+    description: Lake system config defining the `ffl-upload` service.
+    default: lake-cache.toml
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        LAKE_CACHE_KEY: ${{ inputs.cache-key }}
+        LAKE_CONFIG: ${{ github.workspace }}/${{ inputs.config }}
+        REPO: ${{ inputs.repo }}
+        TARGETS: ${{ inputs.targets }}
+      run: |
+        if [ -z "$LAKE_CACHE_KEY" ]; then
+          echo "::notice::the LAKE_CACHE_KEY secret is not set; skipping the upload"
+          exit 0
+        fi
+        # shellcheck disable=SC2086  # TARGETS is a target list
+        lake build --no-build -o .lake/outputs.jsonl $TARGETS
+        echo "mapping entries: $(wc -l < .lake/outputs.jsonl)"
+        lake cache put .lake/outputs.jsonl --service ffl-upload --repo "$REPO"

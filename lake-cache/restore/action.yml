@@ -1,0 +1,74 @@
+name: Restore Lake cache
+description: Download this repository's published Lean build outputs from the shared FFL R2 cache.
+
+inputs:
+  enabled:
+    description: Pass `vars.LAKE_CACHE_ENABLED`. Anything but `1` makes every step here a no-op.
+    required: true
+  repo:
+    description: Upstream `owner/repo` whose outputs to read.
+    default: ${{ github.repository }}
+  skip-download:
+    description: Skip the download because another cache already restored the build.
+    default: 'false'
+  config:
+    description: Lake system config defining the `ffl` service.
+    default: lake-cache.toml
+  max-revs:
+    description: Revisions to walk back when HEAD was never published.
+    default: '100'
+  assert-fresh:
+    description: Target that must already be up to date afterwards. Empty to skip the check.
+    default: Mathlib
+
+outputs:
+  enabled:
+    description: Whether the cache is on.
+    value: ${{ steps.configure.outputs.enabled }}
+
+runs:
+  using: composite
+  steps:
+    - id: configure
+      shell: bash
+      env:
+        ENABLED: ${{ inputs.enabled }}
+      run: |
+        if [ "$ENABLED" != 1 ]; then
+          echo "enabled=false" >> "$GITHUB_OUTPUT"
+          echo "::notice::Lake cache off; set the LAKE_CACHE_ENABLED repository variable to 1"
+          exit 0
+        fi
+        {
+          echo "LAKE_CACHE_DIR=$GITHUB_WORKSPACE/.lake/cache"
+          echo "LAKE_ARTIFACT_CACHE=true"
+          # An enabled artifact cache keeps outputs out of .lake/build, which docs, packing and
+          # artifact uploads read.
+          echo "LAKE_RESTORE_ARTIFACTS=true"
+        } >> "$GITHUB_ENV"
+        echo "enabled=true" >> "$GITHUB_OUTPUT"
+
+    - if: steps.configure.outputs.enabled == 'true' && inputs.skip-download != 'true'
+      shell: bash
+      env:
+        LAKE_CONFIG: ${{ github.workspace }}/${{ inputs.config }}
+        REPO: ${{ inputs.repo }}
+        MAX_REVS: ${{ inputs.max-revs }}
+      run: |
+        for attempt in 1 2 3; do
+          if lake cache get --service ffl --repo "$REPO" --max-revs="$MAX_REVS"; then exit 0; fi
+          echo "::warning::lake cache get attempt $attempt did not complete"
+        done
+        echo "::warning::cache incomplete; the build will compile the rest from source"
+
+    # Build off what is on disk. Uploads are unaffected: this only disables downloads.
+    - if: steps.configure.outputs.enabled == 'true'
+      shell: bash
+      run: echo "LAKE_NO_CACHE=true" >> "$GITHUB_ENV"
+
+    # Fail loudly rather than silently rebuild what the cache was supposed to supply.
+    - if: steps.configure.outputs.enabled == 'true' && inputs.assert-fresh != ''
+      shell: bash
+      env:
+        TARGET: ${{ inputs.assert-fresh }}
+      run: lake build --no-build "$TARGET"
