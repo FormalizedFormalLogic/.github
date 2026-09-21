@@ -2,12 +2,6 @@ name: Restore Lake cache
 description: Download this repository's published Lean build outputs from the shared FFL R2 cache.
 
 inputs:
-  enabled:
-    description: >-
-      Pass `vars.LAKE_CACHE_ENABLED`. `0` makes every step here a no-op; anything else, including
-      the unset variable, leaves the cache on. Writing the step is what asks for the cache — the
-      variable is only the way to take it back without touching the workflow.
-    default: '1'
   repo:
     description: Upstream `owner/repo` whose outputs to read.
     default: ${{ github.repository }}
@@ -29,24 +23,11 @@ inputs:
     description: Target that must already be up to date afterwards. Empty to skip the check.
     default: Mathlib
 
-outputs:
-  enabled:
-    description: Whether the cache is on.
-    value: ${{ steps.configure.outputs.enabled }}
-
 runs:
   using: composite
   steps:
-    - id: configure
-      shell: bash
-      env:
-        ENABLED: ${{ inputs.enabled }}
+    - shell: bash
       run: |
-        if [ "$ENABLED" = 0 ]; then
-          echo "enabled=false" >> "$GITHUB_OUTPUT"
-          echo "::notice::Lake cache off; the LAKE_CACHE_ENABLED repository variable is 0"
-          exit 0
-        fi
         {
           echo "LAKE_CACHE_DIR=$GITHUB_WORKSPACE/.lake/cache"
           echo "LAKE_ARTIFACT_CACHE=true"
@@ -54,9 +35,8 @@ runs:
           # artifact uploads read.
           echo "LAKE_RESTORE_ARTIFACTS=true"
         } >> "$GITHUB_ENV"
-        echo "enabled=true" >> "$GITHUB_OUTPUT"
 
-    - if: steps.configure.outputs.enabled == 'true' && inputs.skip-download != 'true'
+    - if: inputs.skip-download != 'true'
       shell: bash
       env:
         LAKE_CONFIG: ${{ github.workspace }}/${{ inputs.config }}
@@ -73,12 +53,11 @@ runs:
         echo "::warning::cache incomplete; the build will compile the rest from source"
 
     # Build off what is on disk. Uploads are unaffected: this only disables downloads.
-    - if: steps.configure.outputs.enabled == 'true'
-      shell: bash
+    - shell: bash
       run: echo "LAKE_NO_CACHE=true" >> "$GITHUB_ENV"
 
     # Fail loudly rather than silently rebuild what the cache was supposed to supply.
-    - if: steps.configure.outputs.enabled == 'true' && inputs.assert-fresh != ''
+    - if: inputs.assert-fresh != ''
       shell: bash
       env:
         TARGET: ${{ inputs.assert-fresh }}
