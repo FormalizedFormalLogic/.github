@@ -34,9 +34,9 @@ revisionEndpoint = "https://411f2fda06461f8aa09a9055685d6fd9.r2.cloudflarestorag
 **2. `platformIndependent = true` in `lakefile.toml`,** if it is a pure Lean package. Without it
 the scope carries `x86_64-unknown-linux-gnu` and non-Linux contributors always miss.
 
-**3. The two steps.** `vars` and `secrets` are not readable inside a composite action, so both are
-passed as inputs. `fetch-depth` is required: the restore walks back from HEAD to a published
-revision, and a merge commit is never one.
+**3. The two steps.** `secrets` are not readable inside a composite action, so the key is passed as
+an input. `fetch-depth` is required: the restore walks back from HEAD to a published revision, and
+a merge commit is never one.
 
 ```yaml
 - uses: actions/checkout@v5
@@ -44,8 +44,6 @@ revision, and a merge commit is never one.
     fetch-depth: 100
 
 - uses: FormalizedFormalLogic/.github/lake-cache/restore@main
-  with:
-    enabled: ${{ vars.LAKE_CACHE_ENABLED }}
 
 - run: lake build MyLib
 
@@ -69,18 +67,19 @@ its own step; the second one does not undo the first.
 ```yaml
 - uses: FormalizedFormalLogic/.github/lake-cache/restore@main
   with:
-    enabled: ${{ vars.LAKE_CACHE_ENABLED }}
     repo: FormalizedFormalLogic/Foundation
     package: Foundation
     assert-fresh: ''
 ```
 
-**4. The secret,** and the variable only if you want an off switch.
+**4. The secret.**
 
 | Name | Kind | Value |
 |---|---|---|
 | `LAKE_CACHE_KEY` | secret | `<ACCESS_KEY_ID>:<SECRET_ACCESS_KEY>` of an R2 API token. Publishing is skipped without it; reads are anonymous and need nothing |
-| `LAKE_CACHE_ENABLED` | variable | `0` makes every cache step a no-op. Unset — the normal case — leaves the cache on |
+
+There is no off switch: writing the steps is what asks for the cache, so dropping them is how a
+repository stops using it.
 
 The token must be an **Account API token** with **Object Read & Write** scoped to
 `ffl-lake-cache` alone — the `Admin` tiers cannot be bucket-scoped and would reach unrelated
