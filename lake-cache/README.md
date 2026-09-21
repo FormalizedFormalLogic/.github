@@ -75,12 +75,12 @@ its own step; the second one does not undo the first.
     assert-fresh: ''
 ```
 
-**4. The variable and the secret.**
+**4. The secret,** and the variable only if you want an off switch.
 
 | Name | Kind | Value |
 |---|---|---|
-| `LAKE_CACHE_ENABLED` | variable | `1` enables the cache; anything else makes every step a no-op |
-| `LAKE_CACHE_KEY` | secret | `<ACCESS_KEY_ID>:<SECRET_ACCESS_KEY>` of an R2 API token |
+| `LAKE_CACHE_KEY` | secret | `<ACCESS_KEY_ID>:<SECRET_ACCESS_KEY>` of an R2 API token. Publishing is skipped without it; reads are anonymous and need nothing |
+| `LAKE_CACHE_ENABLED` | variable | `0` makes every cache step a no-op. Unset — the normal case — leaves the cache on |
 
 The token must be an **Account API token** with **Object Read & Write** scoped to
 `ffl-lake-cache` alone — the `Admin` tiers cannot be bucket-scoped and would reach unrelated

@@ -3,8 +3,11 @@ description: Download this repository's published Lean build outputs from the sh
 
 inputs:
   enabled:
-    description: Pass `vars.LAKE_CACHE_ENABLED`. Anything but `1` makes every step here a no-op.
-    required: true
+    description: >-
+      Pass `vars.LAKE_CACHE_ENABLED`. `0` makes every step here a no-op; anything else, including
+      the unset variable, leaves the cache on. Writing the step is what asks for the cache — the
+      variable is only the way to take it back without touching the workflow.
+    default: '1'
   repo:
     description: Upstream `owner/repo` whose outputs to read.
     default: ${{ github.repository }}
@@ -39,9 +42,9 @@ runs:
       env:
         ENABLED: ${{ inputs.enabled }}
       run: |
-        if [ "$ENABLED" != 1 ]; then
+        if [ "$ENABLED" = 0 ]; then
           echo "enabled=false" >> "$GITHUB_OUTPUT"
-          echo "::notice::Lake cache off; set the LAKE_CACHE_ENABLED repository variable to 1"
+          echo "::notice::Lake cache off; the LAKE_CACHE_ENABLED repository variable is 0"
           exit 0
         fi
         {
